@@ -5,6 +5,113 @@
         "version": "1.0.0"
     },
     "basePath": "/api/v1",
-    "paths": {},
-    "definitions": {}
+    "paths": {
+        "/carros": {
+            "get": {
+                "tags": [
+                    "Carro"
+                ],
+                "summary": "Retornar a listagem de todos os carros",
+                "description": "Get all Carros",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Carro"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Carro": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "modelo": {
+                    "description": "modelo",
+                    "type": "string"
+                },
+                "marca": {
+                    "description": "marca",
+                    "type": "string"
+                },
+                "tipo_de_veiculo": {
+                    "description": "tipo_de_veiculo",
+                    "type": "string"
+                },
+                "ano": {
+                    "description": "ano",
+                    "type": "string"
+                },
+                "potencia_do_motor": {
+                    "description": "potencia_do_motor",
+                    "type": "string"
+                },
+                "quilometragem": {
+                    "description": "quilometragem",
+                    "type": "string"
+                },
+                "combustivel": {
+                    "description": "combustivel",
+                    "type": "string"
+                },
+                "cambio": {
+                    "description": "cambio",
+                    "type": "string"
+                },
+                "direcao": {
+                    "description": "direcao",
+                    "type": "string"
+                },
+                "cor": {
+                    "description": "cor",
+                    "type": "string"
+                },
+                "portas": {
+                    "description": "portas",
+                    "type": "string"
+                },
+                "preco": {
+                    "description": "preco",
+                    "type": "string"
+                },
+                "final_de_placa": {
+                    "description": "final_de_placa",
+                    "type": "string"
+                },
+                "cep": {
+                    "description": "cep",
+                    "type": "string"
+                },
+                "municipio": {
+                    "description": "municipio",
+                    "type": "string"
+                },
+                "bairro": {
+                    "description": "bairro",
+                    "type": "string"
+                }
+            }
+        }
+    }
 }
