@@ -62,13 +62,7 @@ class CarroAPIController extends AppBaseController
     public function index(Request $request)
     {
         if (!\Cache::has($this->cacheDeCarros)) {
-            \Artisan::call('crawler:carros');
-            $carros = $this->carroRepository->all(
-                $request->except(['skip', 'limit']),
-                $request->get('skip'),
-                $request->get('limit')
-            );
-            \Cache::put($this->cacheDeCarros, $carros, now()->addHour(1));
+            $this->setCacheCarros();
         } else {
             $carros = \Cache::get($this->cacheDeCarros);
         }
@@ -117,11 +111,18 @@ class CarroAPIController extends AppBaseController
     public function pesquisar(PesquisarCarroAPIRequest $request)
     {
         if (!\Cache::has($this->cacheDeCarros)) {
-            \Artisan::call('crawler:carros');
+            $this->setCacheCarros();
         }
 
         $carros = $this->carroRepository->pesquisar($request);
 
         return $this->sendResponse($carros->toArray(), 'Carros retrieved successfully');
+    }
+
+    public function setCacheCarros()
+    {
+        \Artisan::call('crawler:carros');
+        $carros = $this->carroRepository->all();
+        \Cache::put($this->cacheDeCarros, $carros, now()->addHour(1));
     }
 }
