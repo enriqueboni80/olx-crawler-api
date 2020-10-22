@@ -61,7 +61,7 @@ class CarrosCrawler extends Command
         $output->writeln('* Se quiser crawlear mais paginas aumente a variavel $lastPage no arquivo "App\Console\Commands\CarroCrawler"');
         $output->writeln('* Tambem aumente "max_execution_time" e "memory_limit" no php.ini');
 
-        /* Carro::truncate(); */
+        Carro::truncate();
 
         $client = new Client();
 
@@ -108,11 +108,11 @@ class CarrosCrawler extends Command
                         $this->carro['descricao'] = $descricao;
                     }
                     
-                    /* $carro = Carro::create($this->carro);
-                    $carro->save(); */
+                    $carro = Carro::create($this->carro);
+                    $carro->save();
                 }
 
-                print_r($this->carro);
+                /* print_r($this->carro); */
             });
         };
         $output->writeln('Crawler Finalizado');
