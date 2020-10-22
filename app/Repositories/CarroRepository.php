@@ -37,4 +37,13 @@ class CarroRepository extends BaseRepository
     {
         return Carro::class;
     }
+
+    public function pesquisar($request)
+    {
+        $carros = Carro::query();
+        foreach ($request->all() as $key => $word) {
+            $carros->where($key, 'LIKE', '%' . $word . '%');
+        }
+        return $carros->get();
+    }
 }

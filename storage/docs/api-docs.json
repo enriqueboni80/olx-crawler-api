@@ -39,6 +39,48 @@
                     }
                 }
             }
+        },
+        "/carros/pesquisar": {
+            "post": {
+                "tags": [
+                    "Carro"
+                ],
+                "summary": "Pesquisa pelos Modelos de Carros",
+                "description": "Store Carro",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Carro that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Carro"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Carro"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

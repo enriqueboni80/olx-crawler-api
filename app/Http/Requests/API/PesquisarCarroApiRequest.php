@@ -5,7 +5,7 @@ namespace App\Http\Requests\API;
 use App\Models\Carro;
 use InfyOm\Generator\Request\APIRequest;
 
-class CreateCarroAPIRequest extends APIRequest
+class PesquisarCarroAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.

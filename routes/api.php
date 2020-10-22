@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('carros', 'CarroAPIController@index');
+Route::post('carros/pesquisar', 'CarroAPIController@pesquisar');
