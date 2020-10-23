@@ -54,7 +54,7 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Carro that should be stored",
+                        "description": "Carros that should be retrieves",
                         "required": false,
                         "schema": {
                             "$ref": "#/definitions/Carro"

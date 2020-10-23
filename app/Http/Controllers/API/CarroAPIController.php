@@ -6,6 +6,7 @@ use App\Http\Requests\API\PesquisarCarroAPIRequest;
 use App\Repositories\CarroRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use PhpParser\Node\Stmt\TryCatch;
 use Response;
 
 /**
@@ -68,6 +69,7 @@ class CarroAPIController extends AppBaseController
         } else {
             $this->carros = \Cache::get($this->cacheDeCarros);
         }
+
         return $this->sendResponse($this->carros->toArray(), 'Carros retrieved successfully');
     }
 
@@ -84,7 +86,7 @@ class CarroAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="Carro that should be stored",
+     *          description="Carros that should be retrieves",
      *          required=false,
      *          @SWG\Schema(ref="#/definitions/Carro")
      *      ),
@@ -114,7 +116,13 @@ class CarroAPIController extends AppBaseController
         if (!\Cache::has($this->cacheDeCarros)) {
             $this->setCacheCarros();
         }
-        $carrosLocalizados = $this->carroRepository->pesquisar($request);
+
+        try {
+            $carrosLocalizados = $this->carroRepository->pesquisar($request);
+        } catch (\Throwable $th) {
+            return $this->sendResponse($th->getMessage(), 400);
+        }
+
         return $this->sendResponse($carrosLocalizados->toArray(), 'Carros retrieved successfully');
     }
 
@@ -122,8 +130,13 @@ class CarroAPIController extends AppBaseController
     public function setCacheCarros()
     {
         $tempoDoCache = 15;
+
         \Artisan::call('crawler:carros');
+
         $this->carros = $this->carroRepository->all();
-        \Cache::put($this->cacheDeCarros, $this->carros, now()->addMinute($tempoDoCache));
+
+        if (!empty($this->carros)) {
+            \Cache::put($this->cacheDeCarros, $this->carros, now()->addMinute($tempoDoCache));
+        }
     }
 }
