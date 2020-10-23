@@ -21,6 +21,8 @@ class CarroAPIController extends AppBaseController
     /** @var  cacheDeCarros */
     private $cacheDeCarros;
 
+    /** @var  carros */
+    private $carros;
 
     public function __construct(CarroRepository $carroRepo)
     {
@@ -64,10 +66,9 @@ class CarroAPIController extends AppBaseController
         if (!\Cache::has($this->cacheDeCarros)) {
             $this->setCacheCarros();
         } else {
-            $carros = \Cache::get($this->cacheDeCarros);
+            $this->carros = \Cache::get($this->cacheDeCarros);
         }
-
-        return $this->sendResponse($carros->toArray(), 'Carros retrieved successfully');
+        return $this->sendResponse($this->carros->toArray(), 'Carros retrieved successfully');
     }
 
     /**
@@ -113,16 +114,16 @@ class CarroAPIController extends AppBaseController
         if (!\Cache::has($this->cacheDeCarros)) {
             $this->setCacheCarros();
         }
-
-        $carros = $this->carroRepository->pesquisar($request);
-
-        return $this->sendResponse($carros->toArray(), 'Carros retrieved successfully');
+        $carrosLocalizados = $this->carroRepository->pesquisar($request);
+        return $this->sendResponse($carrosLocalizados->toArray(), 'Carros retrieved successfully');
     }
 
+    //description="Seta o cache de carros: variavel $tempoDoCache defini o tempo do cache em MINUTOS"
     public function setCacheCarros()
     {
+        $tempoDoCache = 15;
         \Artisan::call('crawler:carros');
-        $carros = $this->carroRepository->all();
-        \Cache::put($this->cacheDeCarros, $carros, now()->addHour(1));
+        $this->carros = $this->carroRepository->all();
+        \Cache::put($this->cacheDeCarros, $this->carros, now()->addMinute($tempoDoCache));
     }
 }
