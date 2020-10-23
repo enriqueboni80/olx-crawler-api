@@ -13,68 +13,14 @@ class CarroApiTest extends TestCase
     /**
      * @test
      */
-    public function test_create_carro()
+    public function test_api_rota_carros()
     {
-        $carro = factory(Carro::class)->make()->toArray();
 
-        $this->response = $this->json(
-            'POST',
-            '/api/carros', $carro
-        );
-
-        $this->assertApiResponse($carro);
-    }
-
-    /**
-     * @test
-     */
-    public function test_read_carro()
-    {
-        $carro = factory(Carro::class)->create();
-
-        $this->response = $this->json(
+        $response = $this->json(
             'GET',
-            '/api/carros/'.$carro->id
+            '/api/v1/carros'
         );
-
-        $this->assertApiResponse($carro->toArray());
-    }
-
-    /**
-     * @test
-     */
-    public function test_update_carro()
-    {
-        $carro = factory(Carro::class)->create();
-        $editedCarro = factory(Carro::class)->make()->toArray();
-
-        $this->response = $this->json(
-            'PUT',
-            '/api/carros/'.$carro->id,
-            $editedCarro
-        );
-
-        $this->assertApiResponse($editedCarro);
-    }
-
-    /**
-     * @test
-     */
-    public function test_delete_carro()
-    {
-        $carro = factory(Carro::class)->create();
-
-        $this->response = $this->json(
-            'DELETE',
-             '/api/carros/'.$carro->id
-         );
-
-        $this->assertApiSuccess();
-        $this->response = $this->json(
-            'GET',
-            '/api/carros/'.$carro->id
-        );
-
-        $this->response->assertStatus(404);
+        
+        $response->assertStatus(200);
     }
 }

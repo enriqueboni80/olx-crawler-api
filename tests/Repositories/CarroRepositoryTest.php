@@ -24,9 +24,9 @@ class CarroRepositoryTest extends TestCase
     /**
      * @test create
      */
-    public function test_create_carro()
+    public function test_respositories_gravar_carro()
     {
-        $carro = factory(Carro::class)->make()->toArray();
+        $carro = Carro::factory()->make()->toArray();
 
         $createdCarro = $this->carroRepo->create($carro);
 
@@ -40,41 +40,13 @@ class CarroRepositoryTest extends TestCase
     /**
      * @test read
      */
-    public function test_read_carro()
+    public function test_respositories_pesquisar_carro()
     {
-        $carro = factory(Carro::class)->create();
+        $carro = Carro::factory()->create();
 
         $dbCarro = $this->carroRepo->find($carro->id);
 
         $dbCarro = $dbCarro->toArray();
         $this->assertModelData($carro->toArray(), $dbCarro);
-    }
-
-    /**
-     * @test update
-     */
-    public function test_update_carro()
-    {
-        $carro = factory(Carro::class)->create();
-        $fakeCarro = factory(Carro::class)->make()->toArray();
-
-        $updatedCarro = $this->carroRepo->update($fakeCarro, $carro->id);
-
-        $this->assertModelData($fakeCarro, $updatedCarro->toArray());
-        $dbCarro = $this->carroRepo->find($carro->id);
-        $this->assertModelData($fakeCarro, $dbCarro->toArray());
-    }
-
-    /**
-     * @test delete
-     */
-    public function test_delete_carro()
-    {
-        $carro = factory(Carro::class)->create();
-
-        $resp = $this->carroRepo->delete($carro->id);
-
-        $this->assertTrue($resp);
-        $this->assertNull(Carro::find($carro->id), 'Carro should not exist in DB');
     }
 }
