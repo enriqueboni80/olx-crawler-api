@@ -6,7 +6,6 @@ use App\Http\Requests\API\PesquisarCarroAPIRequest;
 use App\Repositories\CarroRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use PhpParser\Node\Stmt\TryCatch;
 use Response;
 
 /**
@@ -62,7 +61,7 @@ class CarroAPIController extends AppBaseController
      *      )
      * )
      */
-    public function index(Request $request)
+    public function index()
     {
         if (!\Cache::has($this->cacheDeCarros)) {
             $this->setCacheCarros();
