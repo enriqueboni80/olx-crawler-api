@@ -1,4 +1,4 @@
-# Web Crawler OLX-API
+# Web Crawler-API OLX
 
 ## Proposta
 
@@ -51,21 +51,21 @@ docker-compose build
 docker-compose up -d
 ```
 5. Acesse o Swagger atraves da  url: http://127.0.0.1:8888 (ou http://localhost:8888/api/docs) - Atencao que nesse caso a porta é diferente da Configuracao Padrao!
-6. Veja documentacaoo e faca eequisicees da API via Swagger
+6. Veja documentacao e faca requisicoes da API via Swagger
 
-## Observacoes Importantes:
+### Observacoes Importantes:
 * Voce pode utilizar o proprio swagger ou o postman para fazer a requisicoes
 
 
 ## Rotas
+
+* veja documentacao mais detalhada atraves do swagger: [http://url/api/docs]
 
 #### [GET] api/v1/carros
 Rota utilizada para buscar todos os carros crawleados.
 
 #### [POST] api/v1/carros/pesquisar
 Rota utilizada para buscar os carros de acordo com a pesquisa estabelecida
-
-* veja documentacao mais detalhada atraves do swagger: [http://url/api/docs]
 
 
 ## Sobre o Crawler na Olx:
