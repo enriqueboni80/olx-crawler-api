@@ -1,61 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Web Crawler OLX-API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Proposta
 
-## About Laravel
+- Buscar informações de modelos específicos de carros na OLX e exibir resultados
+- Construir um crawler para buscar as informacoes na OLX
+- Persistir as informacoes
+- Fornecer estas informações para o frontend usando uma api (rest ou GraphQL).
+- Se a mesma busca for realizada dentro de um periodo de x horas, deve-se retornar o resultado que foi persistido (cache).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Especificações
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 7.4.7
+- Laravel 8.10.0
+* Docker (https://docs.docker.com/get-docker/) caso deseje rodar aplicacao via containers
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Configuracao Padrao
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone o repositorio
+2. Abra o terminal de comandos e rode o comando:
+```
+composer install
+```
+3. Copie o arquivo ".env.example" e renomeie a copia para ".env"
+4. Rode o comando:
+```
+php artisan key:generate
+```
+5. Crie o arquivo "database.sqlite" dentro da pasta App\database:
+6. Rode o comando:
+```
+php artisan migrate
+```
+7. Rode o comando:
+```
+php artisan serve
+```
+8. Acesse o Swagger através da  url: http://127.0.0.1:8000 (ou http://localhost:8000/api/docs)
+9. Veja documentacaoo e faca eequisicees da API via Swagger
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Rodando em Containers (Docker)
+1. Repita os passos da Configuracao padrao (acima) de 1 a 6
+2. Acesse a pasta docker (cd docker)
+3. Rode o comando
+```
+docker-compose build
+```
+4. Rode o comando:
+```
+docker-compose up -d
+```
+5. Acesse o Swagger através da  url: http://127.0.0.1:8888 (ou http://localhost:8888/api/docs) *Atenção que nesse caso a porta é diferente da Configuracao Padrao!
+6. Veja documentacaoo e faca eequisicees da API via Swagger
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Observacoes Importantes:
+* Voce pode utilizar o próprio swagger ou o postman para fazer a requicoes
 
-### Premium Partners
+### Sobre o Crawler na Olx:
+* A qualquer momento pode-se atualizar a base-cache de carros através do comando "php artisan crawler:carros" - Para não sobrecarregar o sistema o default do crawler é 1 pagina (ou 50 carros).
+* Se quiser crawlear mais paginas aumente a variavel $lastPage no arquivo "App\Console\Commands\CarroCrawler" e tambem aumente "max_execution_time" e "memory_limit" no php.ini
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+### Rotas
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### [GET] api/v1/carros
+Rota utilizada para buscar todos os carros crawleados.
 
-## Code of Conduct
+### [POST] api/v1/carros/pesquisar
+Rota utilizada para buscar os carros de acordo com a pesquisa estabelecida
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* veja documentacao mais detalhada atraves do swagger: [http://url/api/docs]
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Agradecimentos
+A Deus e a minha familia 
