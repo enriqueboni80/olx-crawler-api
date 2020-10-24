@@ -46,17 +46,17 @@ php artisan serve
 ```
 docker-compose build
 ```
-3. Dentro da pasta [docker/] o comando:
+3. Dentro da pasta [docker/] rode o comando:
 ```
 docker-compose up -d
 ```
-4. Acesse a documentacao da API (Swagger) atraves da url: http://127.0.0.1:8888 ou http://localhost:8888/api/docs --> obs: Atencao que nesse caso a porta é diferente da Configuracao Padrao!
+4. Acesse a documentacao da API (Swagger) atraves da url: http://127.0.0.1:8888 ou http://localhost:8888/api/docs --> obs: Atencao: nesse caso a porta é diferente da Configuracao Padrao!
 5. Faca requisicoes na API livremente utilizando o Swagger (ou o Postman)
 
 
 ## Rotas
 
-* Veja documentacao mais detalhada atraves do swagger: [http://url/api/docs]
+* Veja documentacao mais detalhada atraves do swagger: [api/docs]
 
 #### [GET] api/v1/carros
 Rota utilizada para buscar todos os carros crawleados.
