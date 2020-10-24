@@ -59,10 +59,10 @@ docker-compose up -d
 
 ## Rotas
 
-### [GET] api/v1/carros
+#### [GET] api/v1/carros
 Rota utilizada para buscar todos os carros crawleados.
 
-### [POST] api/v1/carros/pesquisar
+#### [POST] api/v1/carros/pesquisar
 Rota utilizada para buscar os carros de acordo com a pesquisa estabelecida
 
 * veja documentacao mais detalhada atraves do swagger: [http://url/api/docs]
